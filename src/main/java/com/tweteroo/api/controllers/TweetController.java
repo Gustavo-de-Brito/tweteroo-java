@@ -15,6 +15,7 @@ import com.tweteroo.api.services.TweetService;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -33,5 +34,10 @@ public class TweetController {
   @GetMapping()
   public List<ResponseTweet> getTweets(@RequestParam int page) {
     return this.service.getTweets(page);
+  }
+
+  @GetMapping("/{username}")
+  public List<ResponseTweet> getTweetsByUsername(@PathVariable String username) {
+    return this.service.getTweetsByUsername(username);
   }
 }

@@ -44,6 +44,14 @@ public class TweetService {
     return this.convertToReponseTweets(tweetsMessage.getContent());
   }
 
+  public List<ResponseTweet> getTweetsByUsername(String username) {
+    User user = this.userSevice.isUserRegistered(username);
+
+    List<TweetMessage> tweets = this.repository.findByUserId(user.getId());
+
+    return this.convertToReponseTweets(tweets);
+  }
+
   private List<ResponseTweet> convertToReponseTweets(List<TweetMessage> tweets) {
     List<ResponseTweet> formatedTweets = new ArrayList<>();
 
