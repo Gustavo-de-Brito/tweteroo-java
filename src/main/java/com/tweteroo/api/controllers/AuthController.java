@@ -10,6 +10,8 @@ import com.tweteroo.api.dto.UserDTO;
 import com.tweteroo.api.models.User;
 import com.tweteroo.api.services.AuthService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/sign-up")
 public class AuthController {
@@ -17,7 +19,7 @@ public class AuthController {
   private AuthService service;
 
   @PostMapping
-  public void create(@RequestBody UserDTO req) {
+  public void create(@Valid @RequestBody UserDTO req) {
     this.service.create(new User(req));
   }
 }
