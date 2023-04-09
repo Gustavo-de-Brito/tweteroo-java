@@ -13,6 +13,12 @@ import lombok.Data;
 @Entity
 @Table(name = "tweets")
 public class TweetMessage {
+
+  public TweetMessage(User user, String tweet) {
+    this.tweet = tweet;
+    this.user = user;
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
