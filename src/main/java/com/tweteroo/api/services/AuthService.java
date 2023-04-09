@@ -17,16 +17,27 @@ public class AuthService {
   private AuthRepository repository;
 
   public void create(User user) {
-    this.isUserRegistered(user.getUsername());
+    this.isUserAlreadyRegistered(user.getUsername());
     this.repository.save(user);
   }
 
-  private void isUserRegistered(String username) {
+  private void isUserAlreadyRegistered(String username) {
     List<User> registeredUser = this.repository.findByUsername(username);
 
     if(!registeredUser.isEmpty()) {
       throw new ResponseStatusException(
         HttpStatusCode.valueOf(409), "nome de usuário já cadastrado");
     }
+  }
+
+  User isUserRegistered(String username) {
+    List<User> dbUser = this.repository.findByUsername(username);
+
+    if(dbUser.isEmpty()) {
+      throw new ResponseStatusException(
+        HttpStatusCode.valueOf(404), "nome de usuário não encontrado");
+    }
+
+    return dbUser.get(0);
   }
 }
